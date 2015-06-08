@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/static/main.css" />
+		<title>{{ question }} - NeedlePoll</title>
+	</head>
+	<body>
+		<div class="banner">
+			NeedlePoll
+		</div>
+		<div class="sheet">
+			<div class="question">
+				{{ question }} ({{ votes }} votes total)
+			</div>
+			<hr />
+			<table>
+				{% for option in zipped -%}
+				<tr class="alternate">
+					<td class="left">
+						{{ option[0] -}}
+					</td>
+					<td class="right">
+						{{ option[1] }} ({{ option[2] }}%)
+					</td>
+				</tr>
+				{% endfor -%}
+			</table>
+		</div>
+	</body>
+</html>

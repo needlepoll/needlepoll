@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/static/main.css" />
+		<title>NeedlePoll</title>
+	</head>
+	<body>
+		<div class="banner">
+			NeedlePoll
+		</div>
+		<div class="sheet">
+			<form action="/create/" method="post">
+				<input name="question" type="text" class="width-100" placeholder="Question" />
+				<textarea name="options" class="width-100" placeholder="Options (one per line)"></textarea>
+				<table>
+					<tr>
+						<td class="left"><input name="multiple" type="checkbox"></td>
+						<td>Allow multiple selections</td>
+					</tr>
+					<tr>
+						<td class="left"><input name="iplimit" type="checkbox"></td>
+						<td>Limit to one vote per IP</td>
+					</tr>
+				</table>
+				<input type="submit" value="Create" id="vote" />
+			</form>
+		</div>
+	</body>
+</html>

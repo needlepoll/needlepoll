@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/static/main.css" />
+		<title>{{ question }} - NeedlePoll</title>
+	</head>
+	<body>
+		<div class="banner">
+			NeedlePoll
+		</div>
+		<div class="sheet">
+			<div class="question">
+				{{ question }}
+			</div>
+			<hr />
+			<form method="post" action="vote/">
+				<table>
+					{% for option in options -%}
+					<tr class="alternate">
+						<td class="left">
+							{% if inputtype == "checkbox" -%}
+							<input type="checkbox" name="{{ loop.index0 }}" />
+							{% elif inputtype == "radio" -%}
+							<input type="radio" name="options" value="{{ loop.index0 }}" />
+							{% endif -%}
+						</td>
+						<td class="right">
+							{{ option }}
+						</td>
+					</tr>
+					{% endfor -%}
+				</table>
+				<input type="submit" id="vote" value="Vote">
+			</form>
+			<form method="link" action="results">
+				<input type="submit" id="view" value="Results" />
+			</form>
+		</div>
+	</body>
+</html>
