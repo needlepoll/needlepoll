@@ -61,7 +61,7 @@ def vote(pollid):
 	else:
 		for i in range(len(options)):
 			option_responses.append(interp_form_boolean(str(request.form.get(str(i)))))
-	cursor.execute("INSERT INTO votes VALUES (%s, %s, %s);", (pollid, option_responses))
+	cursor.execute("INSERT INTO votes VALUES (%s, %s, %s);", (pollid, option_responses, ipad))
 	connection.commit()
 	return redirect("/poll/%s/results/" % pollid, code=302)
 
