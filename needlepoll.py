@@ -39,7 +39,12 @@ def render_poll(pollid):
 
 @app.route("/poll/<pollid>/vote/", methods=["POST"])
 def vote(pollid):
+	ipad = request.headers.get("X-Forwarded-For")
 	cursor = connection.cursor()
+	cursor.execute("SELECT * FROM votes WHERE id = %s AND ip = %s", (pollid, ipad))
+	previous_vote = cursor.fetchone()
+	print(type(previous_vote))
+	print(previous_vote)
 	cursor.execute("SELECT options FROM polls WHERE id = %s", (pollid,))
 	results = cursor.fetchone()
 	options = results[0]
@@ -56,7 +61,7 @@ def vote(pollid):
 	else:
 		for i in range(len(options)):
 			option_responses.append(interp_form_boolean(str(request.form.get(str(i)))))
-	cursor.execute("INSERT INTO votes VALUES (%s, %s);", (pollid, option_responses))
+	cursor.execute("INSERT INTO votes VALUES (%s, %s, %s);", (pollid, option_responses))
 	connection.commit()
 	return redirect("/poll/%s/results/" % pollid, code=302)
 
