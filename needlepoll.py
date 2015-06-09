@@ -43,10 +43,10 @@ def vote(pollid):
 	cursor = connection.cursor()
 	cursor.execute("SELECT * FROM votes WHERE id = %s AND ip = %s", (pollid, ipad))
 	previous_vote = cursor.fetchone()
-	print(type(previous_vote))
-	print(previous_vote)
 	cursor.execute("SELECT options FROM polls WHERE id = %s", (pollid,))
 	results = cursor.fetchone()
+	cursor.execute("SELECT ip FROM polls WHERE id = %s", (pollid,))
+	multiple_per_ip = cursor.fetchone()[0]
 	options = results[0]
 	option_responses = []
 	selection = request.form.get("options")
@@ -61,9 +61,12 @@ def vote(pollid):
 	else:
 		for i in range(len(options)):
 			option_responses.append(interp_form_boolean(str(request.form.get(str(i)))))
-	cursor.execute("INSERT INTO votes VALUES (%s, %s, %s);", (pollid, option_responses, ipad))
-	connection.commit()
-	return redirect("/poll/%s/results/" % pollid, code=302)
+	if previous_votes = None and (not multiple_per_ip):
+		cursor.execute("INSERT INTO votes VALUES (%s, %s, %s);", (pollid, option_responses, ipad))
+		connection.commit()
+		return redirect("/poll/%s/results/" % pollid, code=302)
+	else:
+		return render_template("error.html", err="Someone using your IP has already voted in this poll")
 
 @app.route("/poll/<pollid>/results/")
 def render_poll_results(pollid):
