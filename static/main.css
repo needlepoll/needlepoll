@@ -38,6 +38,15 @@ tr.alternate:nth-child(odd) {
 table {
 	width: 100%;
 }
+.bar {
+	width: 100px;
+	height: 16px;
+	background-color: #666666;
+}
+.bar .fill {
+	height: 16px;
+	background-color: #333333;
+}
 #vote {
 	margin-top: 20px;
 	width: 200px;

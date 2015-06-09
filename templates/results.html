@@ -22,6 +22,11 @@
 					<td class="right">
 						{{ option[1] }} ({{ option[2] }}%)
 					</td>
+					<td class="left">
+						<div class="bar">
+							<div class="fill" style="width: {{ option[2] }}px;" />
+						</div>
+					</td>
 				</tr>
 				{% endfor -%}
 			</table>
