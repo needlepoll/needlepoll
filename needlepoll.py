@@ -61,7 +61,7 @@ def vote(pollid):
 	else:
 		for i in range(len(options)):
 			option_responses.append(interp_form_boolean(str(request.form.get(str(i)))))
-	if previous_votes = None and (not multiple_per_ip):
+	if previous_votes == None and (not multiple_per_ip):
 		cursor.execute("INSERT INTO votes VALUES (%s, %s, %s);", (pollid, option_responses, ipad))
 		connection.commit()
 		return redirect("/poll/%s/results/" % pollid, code=302)
